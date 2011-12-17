@@ -9,6 +9,8 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 public class WSBroadcaster extends Activity {
 
@@ -38,6 +40,13 @@ public class WSBroadcaster extends Activity {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.optionmenu, menu);
+		return true;
 	}
 
 }

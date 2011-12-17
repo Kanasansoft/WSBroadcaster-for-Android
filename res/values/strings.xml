@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
 	<string name="app_name">WSBroadcaster for Android</string>
+
+	<string name="optionmenu_preferences_title">Preferences</string>
+
 </resources>
