@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="response_type_names">
+		<item>@string/response_type_name_nothing</item>
+		<item>@string/response_type_name_echo</item>
+		<item>@string/response_type_name_all</item>
+	</string-array>
+	<string-array name="response_type_values">
+		<item>nothing</item>
+		<item>echo</item>
+		<item>all</item>
+	</string-array>
+</resources>

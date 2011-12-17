@@ -5,4 +5,27 @@
 
 	<string name="optionmenu_preferences_title">Preferences</string>
 
+	<string name="response_type_name_nothing">Nothing</string>
+	<string name="response_type_name_echo">echo</string>
+	<string name="response_type_name_all">All</string>
+
+	<string name="preference_port_number_title">Port Number</string>
+	<string name="preference_port_number_summary">Open Port Number</string>
+	<string name="preference_port_number_dialog_title">Input Port Number</string>
+
+	<string name="preference_response_type_title">Response Type</string>
+	<string name="preference_response_type_summary">Operation on Receive Message</string>
+	<string name="preference_response_type_dialog_title">Select Response Type</string>
+
+	<string name="preference_periodic_message_title">Periodic Message</string>
+	<string name="preference_periodic_message_summary">Send Message Periodically</string>
+
+	<string name="preference_periodic_message_interval_title">Interval of Periodic Message</string>
+	<string name="preference_periodic_message_interval_summary">in Seconds</string>
+	<string name="preference_periodic_message_interval_dialog_title">Input Interval (seconds)</string>
+
+	<string name="preference_periodic_message_text_title">Text of Periodic Message</string>
+	<string name="preference_periodic_message_text_summary">Send Text</string>
+	<string name="preference_periodic_message_text_dialog_title">Input Send Text</string>
+
 </resources>
