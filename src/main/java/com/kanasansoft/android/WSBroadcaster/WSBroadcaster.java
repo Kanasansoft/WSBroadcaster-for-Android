@@ -13,6 +13,8 @@ import org.eclipse.jetty.util.component.LifeCycle;
 import org.eclipse.jetty.util.component.LifeCycle.Listener;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -239,7 +241,18 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.optionmenu_preferences:
-			startActivityForResult(new Intent(this,MyPreferenceActivity.class), 0);
+			String currentValueServerStatus = Server.STOPPED;
+			if (server != null) {
+				currentValueServerStatus = server.getState();
+			}
+			if (currentValueServerStatus.equals(Server.STOPPED)) {
+				startActivityForResult(new Intent(this,MyPreferenceActivity.class), 0);
+			} else {
+				Builder alert = new AlertDialog.Builder(this);
+				alert.setMessage(R.string.message_only_when_a_server_is_stoped);
+				alert.setPositiveButton(android.R.string.ok, null);
+				alert.create().show();
+			}
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

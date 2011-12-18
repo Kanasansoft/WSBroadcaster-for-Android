@@ -37,4 +37,6 @@
 	<string name="preference_periodic_message_text_summary">Send Text</string>
 	<string name="preference_periodic_message_text_dialog_title">Input Send Text</string>
 
+	<string name="message_only_when_a_server_is_stoped">Only when a server is stoped.</string>
+
 </resources>
