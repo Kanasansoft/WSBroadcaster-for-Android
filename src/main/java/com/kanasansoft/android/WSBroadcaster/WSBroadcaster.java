@@ -55,11 +55,16 @@ public class WSBroadcaster extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.optionmenu_preferences:
-			startActivity(new Intent(this,MyPreferenceActivity.class));
+			startActivityForResult(new Intent(this,MyPreferenceActivity.class), 0);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 }
