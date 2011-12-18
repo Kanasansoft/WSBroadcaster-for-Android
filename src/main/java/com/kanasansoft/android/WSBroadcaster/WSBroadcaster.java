@@ -47,7 +47,7 @@ public class WSBroadcaster extends Activity {
 
 	}
 
-	void display() {
+	void displayPreferenceValue() {
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
