@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 public class WSBroadcaster extends Activity {
 
+	Server server = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class WSBroadcaster extends Activity {
 
 	void startWebSocketServer() {
 
-		Server server = new Server(40320);
+		server = new Server(40320);
 
 		MyWebSocketServlet wss = new MyWebSocketServlet();
 		ServletHolder sh = new ServletHolder(wss);
