@@ -22,6 +22,7 @@
 				<TextView
 					android:text="@string/server_status"
 					android:padding="5dip"
+					android:gravity="right"
 				/>
 				<TextView
 					android:id="@+id/display_area_server_status"
@@ -32,6 +33,7 @@
 				<TextView
 					android:text="@string/preference_port_number_title"
 					android:padding="5dip"
+					android:gravity="right"
 				/>
 				<TextView
 					android:id="@+id/display_area_port_number"
@@ -42,6 +44,7 @@
 				<TextView
 					android:text="@string/preference_response_type_title"
 					android:padding="5dip"
+					android:gravity="right"
 				/>
 				<TextView
 					android:id="@+id/display_area_response_type"
@@ -52,6 +55,7 @@
 				<TextView
 					android:text="@string/preference_periodic_message_title"
 					android:padding="5dip"
+					android:gravity="right"
 				/>
 				<TextView
 					android:id="@+id/display_area_periodic_message"
@@ -62,6 +66,7 @@
 				<TextView
 					android:text="@string/preference_periodic_message_interval_title"
 					android:padding="5dip"
+					android:gravity="right"
 				/>
 				<TextView
 					android:id="@+id/display_area_periodic_message_interval"
@@ -72,6 +77,7 @@
 				<TextView
 					android:text="@string/preference_periodic_message_text_title"
 					android:padding="5dip"
+					android:gravity="right"
 				/>
 				<TextView
 					android:id="@+id/display_area_periodic_message_text"
