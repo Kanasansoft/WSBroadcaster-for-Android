@@ -49,6 +49,19 @@ public class WSBroadcaster extends Activity {
 
 	}
 
+	void displayServerStatus() {
+
+		String currentValueServerStatus = Server.STOPPED;
+		if (server != null) {
+			currentValueServerStatus = server.getState();
+		}
+
+		TextView displayAreaServerStatus = (TextView)findViewById(R.id.display_area_server_status);
+
+		displayAreaServerStatus.setText(currentValueServerStatus);
+
+	}
+
 	void displayPreferenceValue() {
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
