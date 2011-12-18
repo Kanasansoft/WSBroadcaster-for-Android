@@ -1,43 +1,42 @@
 package com.kanasansoft.android.WSBroadcaster;
 
-import java.io.IOException;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-
 import org.eclipse.jetty.websocket.WebSocket;
 
 public class MyWebSocket implements WebSocket.OnTextMessage, WebSocket.OnBinaryMessage {
 
-	private Connection connection_;
-	private static Set<MyWebSocket> members_ = new CopyOnWriteArraySet<MyWebSocket>();
+	private Listener listener_ = null;
+	private Connection connection_ = null;
+
+	public MyWebSocket(Listener listener) {
+		listener_ = listener;
+	}
 
 	public void onOpen(Connection connection) {
 		connection_ = connection;
-		members_.add(this);
+		listener_.onOpen(this);
 	}
 
 	public void onClose(int closeCode, String message) {
-		members_.remove(this);
+		listener_.onClose(this, closeCode, message);
 	}
 
 	public void onMessage(String data) {
-		for(MyWebSocket member : members_) {
-			try {
-				member.connection_.sendMessage(data);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		listener_.onMessage(this, data);
 	}
 
 	public void onMessage(byte[] data, int offset, int length) {
-		for(MyWebSocket member : members_) {
-			try {
-				member.connection_.sendMessage(data, offset, length);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		listener_.onMessage(this, data, offset, length);
+	}
+
+	Connection getConnection() {
+		return connection_;
+	}
+
+	public interface Listener {
+		void onOpen(MyWebSocket myWebSocket);
+		void onClose(MyWebSocket myWebSocket, int closeCode, String message);
+		void onMessage(MyWebSocket myWebSocket, String data);
+		void onMessage(MyWebSocket myWebSocket, byte[] data, int offset, int length);
 	}
 
 }

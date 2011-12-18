@@ -1,5 +1,9 @@
 package com.kanasansoft.android.WSBroadcaster;
 
+import java.io.IOException;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -22,7 +26,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class WSBroadcaster extends Activity implements Listener, OnClickListener {
+public class WSBroadcaster extends Activity implements Listener, OnClickListener, MyWebSocket.Listener {
 
 	String preferenceKeyPortNumber              = null;
 	String preferenceKeyResponseType            = null;
@@ -31,6 +35,8 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 	String preferenceKeyPeriodicMessageText     = null;
 
 	Server server = null;
+
+	private static Set<MyWebSocket> members_ = new CopyOnWriteArraySet<MyWebSocket>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +65,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		server.addLifeCycleListener(this);
 
-		MyWebSocketServlet wss = new MyWebSocketServlet();
+		MyWebSocketServlet wss = new MyWebSocketServlet(this);
 		ServletHolder sh = new ServletHolder(wss);
 		ServletContextHandler sch = new ServletContextHandler();
 		sch.addServlet(sh, "/*");
@@ -209,6 +215,34 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 			stopWebSocketServer();
 		}
 
+	}
+
+	public void onOpen(MyWebSocket myWebSocket) {
+		members_.add(myWebSocket);
+	}
+
+	public void onClose(MyWebSocket myWebSocket, int closeCode, String message) {
+		members_.remove(myWebSocket);
+	}
+
+	public void onMessage(MyWebSocket myWebSocket, String data) {
+		for(MyWebSocket member : members_) {
+			try {
+				member.getConnection().sendMessage(data);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void onMessage(MyWebSocket myWebSocket, byte[] data, int offset, int length) {
+		for(MyWebSocket member : members_) {
+			try {
+				member.getConnection().sendMessage(data, offset, length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
