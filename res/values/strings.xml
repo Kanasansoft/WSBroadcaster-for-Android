@@ -9,6 +9,8 @@
 	<string name="response_type_name_echo">echo</string>
 	<string name="response_type_name_all">All</string>
 
+	<string name="server_status">Server Status</string>
+
 	<string name="preference_port_number_title">Port Number</string>
 	<string name="preference_port_number_summary">Open Port Number</string>
 	<string name="preference_port_number_dialog_title">Input Port Number</string>

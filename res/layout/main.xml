@@ -20,6 +20,14 @@
 		>
 			<TableRow>
 				<TextView
+					android:text="@string/server_status"
+				/>
+				<TextView
+					android:id="@+id/display_area_server_status"
+				/>
+			</TableRow>
+			<TableRow>
+				<TextView
 					android:text="@string/preference_port_number_title"
 				/>
 				<TextView
