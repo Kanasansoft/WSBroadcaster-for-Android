@@ -9,7 +9,7 @@
 		android:dialogTitle="@string/preference_port_number_dialog_title"
 		android:inputType="number"
 		android:maxLength="5"
-		android:defaultValue="40320"
+		android:defaultValue="@string/default_value_port_number"
 	/>
 	<ListPreference
 		android:key="response_type"
@@ -18,13 +18,13 @@
 		android:dialogTitle="@string/preference_response_type_dialog_title"
 		android:entries="@array/response_type_names"
 		android:entryValues="@array/response_type_values"
-		android:defaultValue="all"
+		android:defaultValue="@string/default_value_response_type"
 	/>
 	<CheckBoxPreference
 		android:key="periodic_message"
 		android:title="@string/preference_periodic_message_title"
 		android:summary="@string/preference_periodic_message_summary"
-		android:defaultValue="true"
+		android:defaultValue="@string/default_value_periodic_message"
 	/>
 	<EditTextPreference
 		android:key="periodic_message_interval"
@@ -35,7 +35,7 @@
 		android:maxLength="5"
 		android:dependency="periodic_message"
 		android:layout="?android:attr/preferenceLayoutChild"
-		android:defaultValue="60"
+		android:defaultValue="@string/default_value_periodic_message_interval"
 	/>
 	<EditTextPreference
 		android:key="periodic_message_text"
@@ -44,6 +44,6 @@
 		android:dialogTitle="@string/preference_periodic_message_text_dialog_title"
 		android:dependency="periodic_message"
 		android:layout="?android:attr/preferenceLayoutChild"
-		android:defaultValue="ping"
+		android:defaultValue="@string/default_value_periodic_message_text"
 	/>
 </PreferenceScreen>

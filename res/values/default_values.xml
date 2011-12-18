@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="default_value_port_number">40320</string>
+	<string name="default_value_response_type">all</string>
+	<string name="default_value_periodic_message">true</string>
+	<string name="default_value_periodic_message_interval">60</string>
+	<string name="default_value_periodic_message_text">ping</string>
+</resources>
