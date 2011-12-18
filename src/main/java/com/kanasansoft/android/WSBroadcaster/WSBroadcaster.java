@@ -24,6 +24,12 @@ import android.widget.TextView;
 
 public class WSBroadcaster extends Activity implements Listener, OnClickListener {
 
+	String preferenceKeyPortNumber              = null;
+	String preferenceKeyResponseType            = null;
+	String preferenceKeyPeriodicMessage         = null;
+	String preferenceKeyPeriodicMessageInterval = null;
+	String preferenceKeyPeriodicMessageText     = null;
+
 	Server server = null;
 
 	@Override
@@ -32,6 +38,12 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
+
+		preferenceKeyPortNumber              = getString(R.string.preference_key_port_number);
+		preferenceKeyResponseType            = getString(R.string.preference_key_response_type);
+		preferenceKeyPeriodicMessage         = getString(R.string.preference_key_periodic_message);
+		preferenceKeyPeriodicMessageInterval = getString(R.string.preference_key_periodic_message_interval);
+		preferenceKeyPeriodicMessageText     = getString(R.string.preference_key_periodic_message_text);
 
 		Button buttonStartStop = (Button)findViewById(R.id.button_start_stop);
 		buttonStartStop.setOnClickListener(this);
@@ -78,31 +90,25 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
-		String prefKeyPortNumber              = getString(R.string.preference_key_port_number);
-		String prefKeyResponseType            = getString(R.string.preference_key_response_type);
-		String prefKeyPeriodicMessage         = getString(R.string.preference_key_periodic_message);
-		String prefKeyPeriodicMessageInterval = getString(R.string.preference_key_periodic_message_interval);
-		String prefKeyPeriodicMessageText     = getString(R.string.preference_key_periodic_message_text);
-
 		String  defaultValuePortNumber              =                 getString(R.string.default_value_port_number);
 		String  defaultValueResponseType            =                 getString(R.string.default_value_response_type);
 		boolean defaultValuePeriodicMessage         = Boolean.valueOf(getString(R.string.default_value_periodic_message));
 		String  defaultValuePeriodicMessageInterval =                 getString(R.string.default_value_periodic_message_interval);
 		String  defaultValuePeriodicMessageText     =                 getString(R.string.default_value_periodic_message_text);
 
-		int     currentValuePortNumber              = Integer.valueOf(pref.getString (prefKeyPortNumber,              defaultValuePortNumber), 10);
-		String  currentValueResponseType            =                 pref.getString (prefKeyResponseType,            defaultValueResponseType);
-		boolean currentValuePeriodicMessage         =                 pref.getBoolean(prefKeyPeriodicMessage,         defaultValuePeriodicMessage);
-		int     currentValuePeriodicMessageInterval = Integer.valueOf(pref.getString (prefKeyPeriodicMessageInterval, defaultValuePeriodicMessageInterval), 10);
-		String  currentValuePeriodicMessageText     =                 pref.getString (prefKeyPeriodicMessageText,     defaultValuePeriodicMessageText);
+		int     currentValuePortNumber              = Integer.valueOf(pref.getString (preferenceKeyPortNumber,              defaultValuePortNumber), 10);
+		String  currentValueResponseType            =                 pref.getString (preferenceKeyResponseType,            defaultValueResponseType);
+		boolean currentValuePeriodicMessage         =                 pref.getBoolean(preferenceKeyPeriodicMessage,         defaultValuePeriodicMessage);
+		int     currentValuePeriodicMessageInterval = Integer.valueOf(pref.getString (preferenceKeyPeriodicMessageInterval, defaultValuePeriodicMessageInterval), 10);
+		String  currentValuePeriodicMessageText     =                 pref.getString (preferenceKeyPeriodicMessageText,     defaultValuePeriodicMessageText);
 
 		Bundle bundle = new Bundle();
 
-		bundle.putInt(getString(R.string.preference_key_port_number), currentValuePortNumber);
-		bundle.putString(getString(R.string.preference_key_response_type), currentValueResponseType);
-		bundle.putBoolean(getString(R.string.preference_key_periodic_message), currentValuePeriodicMessage);
-		bundle.putInt(getString(R.string.preference_key_periodic_message_interval), currentValuePeriodicMessageInterval);
-		bundle.putString(getString(R.string.preference_key_periodic_message_text), currentValuePeriodicMessageText);
+		bundle.putInt(preferenceKeyPortNumber,              currentValuePortNumber);
+		bundle.putString(preferenceKeyResponseType,         currentValueResponseType);
+		bundle.putBoolean(preferenceKeyPeriodicMessage,     currentValuePeriodicMessage);
+		bundle.putInt(preferenceKeyPeriodicMessageInterval, currentValuePeriodicMessageInterval);
+		bundle.putString(preferenceKeyPeriodicMessageText,  currentValuePeriodicMessageText);
 
 		return bundle;
 
@@ -139,11 +145,11 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		TextView displayAreaPeriodicMessageInterval = (TextView)findViewById(R.id.display_area_periodic_message_interval);
 		TextView displayAreaPeriodicMessageText     = (TextView)findViewById(R.id.display_area_periodic_message_text);
 
-		displayAreaPortNumber.setText             (String.valueOf(prefData.getInt    (getString(R.string.preference_key_port_number))));
-		displayAreaResponseType.setText           (               prefData.getString (getString(R.string.preference_key_response_type)));
-		displayAreaPeriodicMessage.setText        (               prefData.getBoolean(getString(R.string.preference_key_periodic_message))?"ON":"OFF");
-		displayAreaPeriodicMessageInterval.setText(String.valueOf(prefData.getInt    (getString(R.string.preference_key_periodic_message_interval))));
-		displayAreaPeriodicMessageText.setText    (               prefData.getString (getString(R.string.preference_key_periodic_message_text)));
+		displayAreaPortNumber.setText             (String.valueOf(prefData.getInt    (preferenceKeyPortNumber)));
+		displayAreaResponseType.setText           (               prefData.getString (preferenceKeyResponseType));
+		displayAreaPeriodicMessage.setText        (               prefData.getBoolean(preferenceKeyPeriodicMessage)?"ON":"OFF");
+		displayAreaPeriodicMessageInterval.setText(String.valueOf(prefData.getInt    (preferenceKeyPeriodicMessageInterval)));
+		displayAreaPeriodicMessageText.setText    (               prefData.getString (preferenceKeyPeriodicMessageText));
 
 	}
 
