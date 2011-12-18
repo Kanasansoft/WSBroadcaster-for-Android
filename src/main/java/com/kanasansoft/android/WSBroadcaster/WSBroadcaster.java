@@ -295,11 +295,37 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 	}
 
 	public void onMessage(MyWebSocket myWebSocket, String data) {
-		broadcast(data);
+
+		Bundle prefData = getPreferenceData();
+
+		String  responseType = prefData.getString(preferenceKeyResponseType);
+		if (responseType.equals(getString(R.string.response_type_value_all))) {
+			broadcast(data);
+		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
+			try {
+				myWebSocket.getConnection().sendMessage(data);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	public void onMessage(MyWebSocket myWebSocket, byte[] data, int offset, int length) {
-		broadcast(data, offset, length);
+
+		Bundle prefData = getPreferenceData();
+
+		String  responseType = prefData.getString(preferenceKeyResponseType);
+		if (responseType.equals(getString(R.string.response_type_value_all))) {
+			broadcast(data, offset, length);
+		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
+			try {
+				myWebSocket.getConnection().sendMessage(data, offset, length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 }
