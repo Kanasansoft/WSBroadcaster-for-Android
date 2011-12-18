@@ -146,7 +146,6 @@ public class WSBroadcaster extends Activity implements Listener {
 	}
 
 	public void lifeCycleFailure(LifeCycle event, Throwable cause) {
-		displayServerStatus();
 	}
 
 	public void lifeCycleStarted(LifeCycle event) {
