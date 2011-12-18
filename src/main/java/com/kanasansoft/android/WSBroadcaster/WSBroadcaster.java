@@ -5,6 +5,8 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.util.component.LifeCycle;
+import org.eclipse.jetty.util.component.LifeCycle.Listener;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class WSBroadcaster extends Activity {
+public class WSBroadcaster extends Activity implements Listener {
 
 	Server server = null;
 
@@ -31,6 +33,8 @@ public class WSBroadcaster extends Activity {
 	void startWebSocketServer() {
 
 		server = new Server(40320);
+
+		server.addLifeCycleListener(this);
 
 		MyWebSocketServlet wss = new MyWebSocketServlet();
 		ServletHolder sh = new ServletHolder(wss);
@@ -120,6 +124,26 @@ public class WSBroadcaster extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		displayPreferenceValue();
+	}
+
+	public void lifeCycleFailure(LifeCycle event, Throwable cause) {
+		displayServerStatus();
+	}
+
+	public void lifeCycleStarted(LifeCycle event) {
+		displayServerStatus();
+	}
+
+	public void lifeCycleStarting(LifeCycle event) {
+		displayServerStatus();
+	}
+
+	public void lifeCycleStopped(LifeCycle event) {
+		displayServerStatus();
+	}
+
+	public void lifeCycleStopping(LifeCycle event) {
+		displayServerStatus();
 	}
 
 }
