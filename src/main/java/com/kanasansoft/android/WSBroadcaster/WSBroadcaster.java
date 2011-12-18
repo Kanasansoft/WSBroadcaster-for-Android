@@ -159,6 +159,26 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
+	public void broadcast(String data) {
+		for(MyWebSocket member : members_) {
+			try {
+				member.getConnection().sendMessage(data);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void broadcast(byte[] data, int offset, int length) {
+		for(MyWebSocket member : members_) {
+			try {
+				member.getConnection().sendMessage(data, offset, length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -226,23 +246,11 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 	}
 
 	public void onMessage(MyWebSocket myWebSocket, String data) {
-		for(MyWebSocket member : members_) {
-			try {
-				member.getConnection().sendMessage(data);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		broadcast(data);
 	}
 
 	public void onMessage(MyWebSocket myWebSocket, byte[] data, int offset, int length) {
-		for(MyWebSocket member : members_) {
-			try {
-				member.getConnection().sendMessage(data, offset, length);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		broadcast(data, offset, length);
 	}
 
 }
