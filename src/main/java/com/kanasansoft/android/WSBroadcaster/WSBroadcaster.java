@@ -184,11 +184,27 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		TextView displayAreaPeriodicMessageInterval = (TextView)findViewById(R.id.display_area_periodic_message_interval);
 		TextView displayAreaPeriodicMessageText     = (TextView)findViewById(R.id.display_area_periodic_message_text);
 
-		displayAreaPortNumber.setText             (String.valueOf(prefData.getInt    (preferenceKeyPortNumber)));
-		displayAreaResponseType.setText           (               prefData.getString (preferenceKeyResponseType));
-		displayAreaPeriodicMessage.setText        (               prefData.getBoolean(preferenceKeyPeriodicMessage)?"ON":"OFF");
-		displayAreaPeriodicMessageInterval.setText(String.valueOf(prefData.getInt    (preferenceKeyPeriodicMessageInterval)));
-		displayAreaPeriodicMessageText.setText    (               prefData.getString (preferenceKeyPeriodicMessageText));
+		int     currentValuePortNumber              = prefData.getInt    (preferenceKeyPortNumber);
+		String  currentValueResponseTypeValue       = prefData.getString (preferenceKeyResponseType);
+		boolean currentValuePeriodicMessage         = prefData.getBoolean(preferenceKeyPeriodicMessage);
+		int     currentValuePeriodicMessageInterval = prefData.getInt    (preferenceKeyPeriodicMessageInterval);
+		String  currentValuePeriodicMessageText     = prefData.getString (preferenceKeyPeriodicMessageText);
+
+		String[] responseTypeValues = getResources().getStringArray(R.array.response_type_values);
+		String[] responseTypeNames = getResources().getStringArray(R.array.response_type_names);
+		String currentValueResponseTypeName = "null";
+		for (int i=0; i<responseTypeValues.length; i++) {
+			if (responseTypeValues[i].equals(currentValueResponseTypeValue)) {
+				currentValueResponseTypeName = responseTypeNames[i];
+				break;
+			}
+		}
+
+		displayAreaPortNumber             .setText(String.valueOf(currentValuePortNumber));
+		displayAreaResponseType           .setText(               currentValueResponseTypeName);
+		displayAreaPeriodicMessage        .setText(               currentValuePeriodicMessage?"ON":"OFF");
+		displayAreaPeriodicMessageInterval.setText(String.valueOf(currentValuePeriodicMessageInterval));
+		displayAreaPeriodicMessageText    .setText(               currentValuePeriodicMessageText);
 
 	}
 
