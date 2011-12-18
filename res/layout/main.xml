@@ -21,49 +21,61 @@
 			<TableRow>
 				<TextView
 					android:text="@string/server_status"
+					android:padding="5dip"
 				/>
 				<TextView
 					android:id="@+id/display_area_server_status"
+					android:padding="5dip"
 				/>
 			</TableRow>
 			<TableRow>
 				<TextView
 					android:text="@string/preference_port_number_title"
+					android:padding="5dip"
 				/>
 				<TextView
 					android:id="@+id/display_area_port_number"
+					android:padding="5dip"
 				/>
 			</TableRow>
 			<TableRow>
 				<TextView
 					android:text="@string/preference_response_type_title"
+					android:padding="5dip"
 				/>
 				<TextView
 					android:id="@+id/display_area_response_type"
+					android:padding="5dip"
 				/>
 			</TableRow>
 			<TableRow>
 				<TextView
 					android:text="@string/preference_periodic_message_title"
+					android:padding="5dip"
 				/>
 				<TextView
 					android:id="@+id/display_area_periodic_message"
+					android:padding="5dip"
 				/>
 			</TableRow>
 			<TableRow>
 				<TextView
 					android:text="@string/preference_periodic_message_interval_title"
+					android:padding="5dip"
 				/>
 				<TextView
 					android:id="@+id/display_area_periodic_message_interval"
+					android:padding="5dip"
 				/>
 			</TableRow>
 			<TableRow>
 				<TextView
 					android:text="@string/preference_periodic_message_text_title"
+					android:padding="5dip"
 				/>
 				<TextView
 					android:id="@+id/display_area_periodic_message_text"
+					android:padding="5dip"
 				/>
 			</TableRow>
 		</TableLayout>
