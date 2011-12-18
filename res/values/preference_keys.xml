@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="preference_key_port_number">port_number</string>
+	<string name="preference_key_response_type">response_type</string>
+	<string name="preference_key_periodic_message">periodic_message</string>
+	<string name="preference_key_periodic_message_interval">periodic_message_interval</string>
+	<string name="preference_key_periodic_message_text">periodic_message_text</string>
+
+</resources>
