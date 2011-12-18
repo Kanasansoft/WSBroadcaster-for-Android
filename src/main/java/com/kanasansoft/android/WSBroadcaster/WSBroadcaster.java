@@ -17,18 +17,28 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class WSBroadcaster extends Activity implements Listener {
+public class WSBroadcaster extends Activity implements Listener, OnClickListener {
 
 	Server server = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.main);
-		startWebSocketServer();
+
+		Button buttonStartStop = (Button)findViewById(R.id.button_start_stop);
+		buttonStartStop.setOnClickListener(this);
+
+		displayServerStatus();
+		displayPreferenceValue();
+
 	}
 
 	void startWebSocketServer() {
@@ -162,6 +172,21 @@ public class WSBroadcaster extends Activity implements Listener {
 
 	public void lifeCycleStopping(LifeCycle event) {
 		displayServerStatus();
+	}
+
+	public void onClick(View view) {
+
+		String currentValueServerStatus = Server.STOPPED;
+		if (server != null) {
+			currentValueServerStatus = server.getState();
+		}
+
+		if (currentValueServerStatus.equals(Server.STOPPED)) {
+			startWebSocketServer();
+		} else {
+			stopWebSocketServer();
+		}
+
 	}
 
 }
