@@ -61,7 +61,14 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	void startWebSocketServer() {
 
-		server = new Server(40320);
+		Bundle prefData = getPreferenceData();
+
+		int     portNumber              = prefData.getInt    (preferenceKeyPortNumber);
+		boolean periodicMessage         = prefData.getBoolean(preferenceKeyPeriodicMessage);
+		int     periodicMessageInterval = prefData.getInt    (preferenceKeyPeriodicMessageInterval);
+		String  periodicMessageText     = prefData.getString (preferenceKeyPeriodicMessageText);
+
+		server = new Server(portNumber);
 
 		server.addLifeCycleListener(this);
 
@@ -78,6 +85,32 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 			server.start();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+
+		if (periodicMessage) {
+			final int interval = periodicMessageInterval * 1000;
+			final String text  = periodicMessageText;
+			Runnable runnable = new Runnable() {
+				public void run() {
+					while (true) {
+						try {
+							Thread.sleep(interval);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						String currentValueServerStatus = Server.STOPPED;
+						if (server != null) {
+							currentValueServerStatus = server.getState();
+						}
+						if (currentValueServerStatus.equals(Server.STOPPED)) {
+							break;
+						} else if (currentValueServerStatus.equals(Server.STARTED)) {
+							broadcast(text);
+						}
+					}
+				}
+			};
+			new Thread(runnable).start();
 		}
 
 	}
