@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class WSBroadcaster extends Activity implements Listener {
@@ -68,6 +69,14 @@ public class WSBroadcaster extends Activity implements Listener {
 		String currentValueServerStatus = Server.STOPPED;
 		if (server != null) {
 			currentValueServerStatus = server.getState();
+		}
+
+		Button buttonStartStop = (Button)findViewById(R.id.button_start_stop);
+
+		if (currentValueServerStatus.equals(Server.STOPPED)) {
+			buttonStartStop.setText(getString(R.string.button_text_start));
+		} else {
+			buttonStartStop.setText(getString(R.string.button_text_stop));
 		}
 
 		TextView displayAreaServerStatus = (TextView)findViewById(R.id.display_area_server_status);
