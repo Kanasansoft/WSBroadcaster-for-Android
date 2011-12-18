@@ -53,6 +53,16 @@ public class WSBroadcaster extends Activity implements Listener {
 
 	}
 
+	void stopWebSocketServer() {
+
+		try {
+			server.stop();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	void displayServerStatus() {
 
 		String currentValueServerStatus = Server.STOPPED;
