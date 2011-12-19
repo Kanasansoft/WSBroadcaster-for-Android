@@ -143,7 +143,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		String  responseType = prefData.getString(preferenceKeyResponseType);
 		if (responseType.equals(getString(R.string.response_type_value_all))) {
-			broadcast(data);
+			sendAll(data);
 		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
 			try {
 				myWebSocket.getConnection().sendMessage(data);
@@ -160,7 +160,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		String  responseType = prefData.getString(preferenceKeyResponseType);
 		if (responseType.equals(getString(R.string.response_type_value_all))) {
-			broadcast(data, offset, length);
+			sendAll(data, offset, length);
 		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
 			try {
 				myWebSocket.getConnection().sendMessage(data, offset, length);
@@ -217,7 +217,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 						if (currentValueServerStatus.equals(Server.STOPPED)) {
 							break;
 						} else if (currentValueServerStatus.equals(Server.STARTED)) {
-							broadcast(text);
+							sendAll(text);
 						}
 					}
 				}
@@ -320,7 +320,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
-	private void broadcast(String data) {
+	private void sendAll(String data) {
 		for(MyWebSocket member : members_) {
 			try {
 				member.getConnection().sendMessage(data);
@@ -330,7 +330,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		}
 	}
 
-	private void broadcast(byte[] data, int offset, int length) {
+	private void sendAll(byte[] data, int offset, int length) {
 		for(MyWebSocket member : members_) {
 			try {
 				member.getConnection().sendMessage(data, offset, length);
