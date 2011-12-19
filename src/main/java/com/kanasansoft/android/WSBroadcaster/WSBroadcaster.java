@@ -147,11 +147,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		} else if (responseType.equals(getString(R.string.response_type_value_other))) {
 			sendOther(myWebSocket, data);
 		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
-			try {
-				myWebSocket.getConnection().sendMessage(data);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			sendEcho(myWebSocket, data);
 		}
 
 	}
@@ -166,11 +162,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		} else if (responseType.equals(getString(R.string.response_type_value_other))) {
 			sendOther(myWebSocket, data, offset, length);
 		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
-			try {
-				myWebSocket.getConnection().sendMessage(data, offset, length);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			sendEcho(myWebSocket, data, offset, length);
 		}
 
 	}
@@ -368,6 +360,22 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void sendEcho(MyWebSocket myWebSocket, String data) {
+			try {
+				myWebSocket.getConnection().sendMessage(data);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+
+	private void sendEcho(MyWebSocket myWebSocket, byte[] data, int offset, int length) {
+			try {
+				myWebSocket.getConnection().sendMessage(data, offset, length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	}
 
 }
