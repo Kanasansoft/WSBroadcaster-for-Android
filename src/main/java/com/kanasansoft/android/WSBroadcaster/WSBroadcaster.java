@@ -171,7 +171,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
-	void startWebSocketServer() {
+	private void startWebSocketServer() {
 
 		Bundle prefData = getPreferenceData();
 
@@ -227,7 +227,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
-	void stopWebSocketServer() {
+	private void stopWebSocketServer() {
 
 		try {
 			server.stop();
@@ -237,7 +237,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
-	Bundle getPreferenceData() {
+	private Bundle getPreferenceData() {
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -265,7 +265,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
-	void displayServerStatus() {
+	private void displayServerStatus() {
 
 		String currentValueServerStatus = Server.STOPPED;
 		if (server != null) {
@@ -286,7 +286,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
-	void displayPreferenceValue() {
+	private void displayPreferenceValue() {
 
 		Bundle prefData = getPreferenceData();
 
@@ -320,7 +320,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
-	public void broadcast(String data) {
+	private void broadcast(String data) {
 		for(MyWebSocket member : members_) {
 			try {
 				member.getConnection().sendMessage(data);
@@ -330,7 +330,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		}
 	}
 
-	public void broadcast(byte[] data, int offset, int length) {
+	private void broadcast(byte[] data, int offset, int length) {
 		for(MyWebSocket member : members_) {
 			try {
 				member.getConnection().sendMessage(data, offset, length);
