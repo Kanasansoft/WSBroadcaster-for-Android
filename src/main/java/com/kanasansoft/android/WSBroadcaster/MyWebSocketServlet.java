@@ -9,6 +9,8 @@ import com.kanasansoft.android.WSBroadcaster.MyWebSocket.Listener;
 
 public class MyWebSocketServlet extends WebSocketServlet {
 
+	private static final long serialVersionUID = 1L;
+
 	private Listener listener_ = null;
 
 	public MyWebSocketServlet(Listener listener) {
