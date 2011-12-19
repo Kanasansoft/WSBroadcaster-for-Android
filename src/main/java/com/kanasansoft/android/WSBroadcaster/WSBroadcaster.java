@@ -144,6 +144,8 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		String  responseType = prefData.getString(preferenceKeyResponseType);
 		if (responseType.equals(getString(R.string.response_type_value_all))) {
 			sendAll(data);
+		} else if (responseType.equals(getString(R.string.response_type_value_other))) {
+			sendOther(myWebSocket, data);
 		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
 			try {
 				myWebSocket.getConnection().sendMessage(data);
@@ -161,6 +163,8 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		String  responseType = prefData.getString(preferenceKeyResponseType);
 		if (responseType.equals(getString(R.string.response_type_value_all))) {
 			sendAll(data, offset, length);
+		} else if (responseType.equals(getString(R.string.response_type_value_other))) {
+			sendOther(myWebSocket, data, offset, length);
 		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
 			try {
 				myWebSocket.getConnection().sendMessage(data, offset, length);
@@ -332,6 +336,32 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	private void sendAll(byte[] data, int offset, int length) {
 		for(MyWebSocket member : members_) {
+			try {
+				member.getConnection().sendMessage(data, offset, length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void sendOther(MyWebSocket myWebSocket, String data) {
+		for(MyWebSocket member : members_) {
+			if (myWebSocket.equals(member)) {
+				continue;
+			}
+			try {
+				member.getConnection().sendMessage(data);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private void sendOther(MyWebSocket myWebSocket, byte[] data, int offset, int length) {
+		for(MyWebSocket member : members_) {
+			if (myWebSocket.equals(member)) {
+				continue;
+			}
 			try {
 				member.getConnection().sendMessage(data, offset, length);
 			} catch (IOException e) {
