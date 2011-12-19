@@ -61,6 +61,117 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.optionmenu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.optionmenu_preferences:
+			String currentValueServerStatus = Server.STOPPED;
+			if (server != null) {
+				currentValueServerStatus = server.getState();
+			}
+			if (currentValueServerStatus.equals(Server.STOPPED)) {
+				startActivityForResult(new Intent(this,MyPreferenceActivity.class), 0);
+			} else {
+				Builder alert = new AlertDialog.Builder(this);
+				alert.setMessage(R.string.message_only_when_a_server_is_stoped);
+				alert.setPositiveButton(android.R.string.ok, null);
+				alert.create().show();
+			}
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		displayPreferenceValue();
+	}
+
+	public void lifeCycleFailure(LifeCycle event, Throwable cause) {
+	}
+
+	public void lifeCycleStarted(LifeCycle event) {
+		displayServerStatus();
+	}
+
+	public void lifeCycleStarting(LifeCycle event) {
+		displayServerStatus();
+	}
+
+	public void lifeCycleStopped(LifeCycle event) {
+		displayServerStatus();
+	}
+
+	public void lifeCycleStopping(LifeCycle event) {
+		displayServerStatus();
+	}
+
+	public void onClick(View view) {
+
+		String currentValueServerStatus = Server.STOPPED;
+		if (server != null) {
+			currentValueServerStatus = server.getState();
+		}
+
+		if (currentValueServerStatus.equals(Server.STOPPED)) {
+			startWebSocketServer();
+		} else {
+			stopWebSocketServer();
+		}
+
+	}
+
+	public void onOpen(MyWebSocket myWebSocket) {
+		members_.add(myWebSocket);
+	}
+
+	public void onClose(MyWebSocket myWebSocket, int closeCode, String message) {
+		members_.remove(myWebSocket);
+	}
+
+	public void onMessage(MyWebSocket myWebSocket, String data) {
+
+		Bundle prefData = getPreferenceData();
+
+		String  responseType = prefData.getString(preferenceKeyResponseType);
+		if (responseType.equals(getString(R.string.response_type_value_all))) {
+			broadcast(data);
+		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
+			try {
+				myWebSocket.getConnection().sendMessage(data);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void onMessage(MyWebSocket myWebSocket, byte[] data, int offset, int length) {
+
+		Bundle prefData = getPreferenceData();
+
+		String  responseType = prefData.getString(preferenceKeyResponseType);
+		if (responseType.equals(getString(R.string.response_type_value_all))) {
+			broadcast(data, offset, length);
+		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
+			try {
+				myWebSocket.getConnection().sendMessage(data, offset, length);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
 	void startWebSocketServer() {
 
 		Bundle prefData = getPreferenceData();
@@ -228,117 +339,6 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 				e.printStackTrace();
 			}
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.optionmenu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.optionmenu_preferences:
-			String currentValueServerStatus = Server.STOPPED;
-			if (server != null) {
-				currentValueServerStatus = server.getState();
-			}
-			if (currentValueServerStatus.equals(Server.STOPPED)) {
-				startActivityForResult(new Intent(this,MyPreferenceActivity.class), 0);
-			} else {
-				Builder alert = new AlertDialog.Builder(this);
-				alert.setMessage(R.string.message_only_when_a_server_is_stoped);
-				alert.setPositiveButton(android.R.string.ok, null);
-				alert.create().show();
-			}
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		displayPreferenceValue();
-	}
-
-	public void lifeCycleFailure(LifeCycle event, Throwable cause) {
-	}
-
-	public void lifeCycleStarted(LifeCycle event) {
-		displayServerStatus();
-	}
-
-	public void lifeCycleStarting(LifeCycle event) {
-		displayServerStatus();
-	}
-
-	public void lifeCycleStopped(LifeCycle event) {
-		displayServerStatus();
-	}
-
-	public void lifeCycleStopping(LifeCycle event) {
-		displayServerStatus();
-	}
-
-	public void onClick(View view) {
-
-		String currentValueServerStatus = Server.STOPPED;
-		if (server != null) {
-			currentValueServerStatus = server.getState();
-		}
-
-		if (currentValueServerStatus.equals(Server.STOPPED)) {
-			startWebSocketServer();
-		} else {
-			stopWebSocketServer();
-		}
-
-	}
-
-	public void onOpen(MyWebSocket myWebSocket) {
-		members_.add(myWebSocket);
-	}
-
-	public void onClose(MyWebSocket myWebSocket, int closeCode, String message) {
-		members_.remove(myWebSocket);
-	}
-
-	public void onMessage(MyWebSocket myWebSocket, String data) {
-
-		Bundle prefData = getPreferenceData();
-
-		String  responseType = prefData.getString(preferenceKeyResponseType);
-		if (responseType.equals(getString(R.string.response_type_value_all))) {
-			broadcast(data);
-		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
-			try {
-				myWebSocket.getConnection().sendMessage(data);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	public void onMessage(MyWebSocket myWebSocket, byte[] data, int offset, int length) {
-
-		Bundle prefData = getPreferenceData();
-
-		String  responseType = prefData.getString(preferenceKeyResponseType);
-		if (responseType.equals(getString(R.string.response_type_value_all))) {
-			broadcast(data, offset, length);
-		} else if (responseType.equals(getString(R.string.response_type_value_echo))) {
-			try {
-				myWebSocket.getConnection().sendMessage(data, offset, length);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
 	}
 
 }
