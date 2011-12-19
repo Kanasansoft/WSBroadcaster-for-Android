@@ -3,11 +3,13 @@
 	<string-array name="response_type_names">
 		<item>@string/response_type_name_nothing</item>
 		<item>@string/response_type_name_echo</item>
+		<item>@string/response_type_name_other</item>
 		<item>@string/response_type_name_all</item>
 	</string-array>
 	<string-array name="response_type_values">
 		<item>@string/response_type_value_nothing</item>
 		<item>@string/response_type_value_echo</item>
+		<item>@string/response_type_value_other</item>
 		<item>@string/response_type_value_all</item>
 	</string-array>
 </resources>

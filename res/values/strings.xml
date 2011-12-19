@@ -10,10 +10,12 @@
 
 	<string name="response_type_name_nothing">Nothing</string>
 	<string name="response_type_name_echo">Echo</string>
+	<string name="response_type_name_other">Other</string>
 	<string name="response_type_name_all">All</string>
 
 	<string name="response_type_value_nothing">nothing</string>
 	<string name="response_type_value_echo">echo</string>
+	<string name="response_type_value_other">other</string>
 	<string name="response_type_value_all">all</string>
 
 	<string name="server_status">Server Status</string>
