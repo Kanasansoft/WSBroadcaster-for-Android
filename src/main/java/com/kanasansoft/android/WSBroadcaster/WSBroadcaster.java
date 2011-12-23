@@ -196,7 +196,7 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		MyWebSocketServlet wss = new MyWebSocketServlet(this);
 		ServletHolder sh = new ServletHolder(wss);
 		ServletContextHandler sch = new ServletContextHandler();
-		sch.addServlet(sh, "/*");
+		sch.addServlet(sh, "/");
 
 		HandlerList hl = new HandlerList();
 		hl.setHandlers(new Handler[] {sch});
