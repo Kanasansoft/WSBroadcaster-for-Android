@@ -7,7 +7,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.component.LifeCycle;
@@ -200,13 +202,19 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		server.addLifeCycleListener(this);
 
+		ResourceHandler rh = new ResourceHandler();
+		rh.setResourceBase(directoryOfPathInSDCard);
+		ContextHandler chrh = new ContextHandler();
+		chrh.setHandler(rh);
+		chrh.setContextPath("/html");
+
 		MyWebSocketServlet wss = new MyWebSocketServlet(this);
 		ServletHolder sh = new ServletHolder(wss);
 		ServletContextHandler sch = new ServletContextHandler();
 		sch.addServlet(sh, "/");
 
 		HandlerList hl = new HandlerList();
-		hl.setHandlers(new Handler[] {sch});
+		hl.setHandlers(new Handler[] {chrh, sch});
 		server.setHandler(hl);
 
 		try {
