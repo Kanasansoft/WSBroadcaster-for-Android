@@ -37,6 +37,8 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 	String preferenceKeyPeriodicMessageInterval = null;
 	String preferenceKeyPeriodicMessageText     = null;
 
+	String directoryOfPathInSDCard = null;
+
 	Server server = null;
 
 	private static Set<MyWebSocket> members_ = new CopyOnWriteArraySet<MyWebSocket>();
@@ -53,6 +55,8 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		preferenceKeyPeriodicMessage         = getString(R.string.preference_key_periodic_message);
 		preferenceKeyPeriodicMessageInterval = getString(R.string.preference_key_periodic_message_interval);
 		preferenceKeyPeriodicMessageText     = getString(R.string.preference_key_periodic_message_text);
+
+		chackAndMakeDirectory();
 
 		Button buttonStartStop = (Button)findViewById(R.id.button_start_stop);
 		buttonStartStop.setOnClickListener(this);
@@ -169,13 +173,10 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 	}
 
-	private void startWebSocketServer() {
-
-		Bundle prefData = getPreferenceData();
-
-		File dirInSDCord = new File(Environment.getExternalStorageDirectory(),"WSBroadcaster");
-		if (!dirInSDCord.exists()) {
-			if (!dirInSDCord.mkdir()) {
+	private void chackAndMakeDirectory() {
+		File dir = new File(Environment.getExternalStorageDirectory(),"WSBroadcaster");
+		if (!dir.exists()) {
+			if (!dir.mkdir()) {
 				Builder alert = new AlertDialog.Builder(this);
 				alert.setMessage(R.string.message_cannot_make_directory_in_sd_card);
 				alert.setPositiveButton(android.R.string.ok, null);
@@ -183,6 +184,12 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 				return;
 			}
 		}
+		directoryOfPathInSDCard = dir.getPath();
+	}
+
+	private void startWebSocketServer() {
+
+		Bundle prefData = getPreferenceData();
 
 		int     portNumber              = prefData.getInt    (preferenceKeyPortNumber);
 		boolean periodicMessage         = prefData.getBoolean(preferenceKeyPeriodicMessage);
