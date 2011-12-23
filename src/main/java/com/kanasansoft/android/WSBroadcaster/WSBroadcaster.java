@@ -33,6 +33,8 @@ import android.widget.TextView;
 
 public class WSBroadcaster extends Activity implements Listener, OnClickListener, MyWebSocket.Listener {
 
+	String preferenceKeyHttpServerPath          = null;
+	String preferenceKeyWebSocketServerPath     = null;
 	String preferenceKeyPortNumber              = null;
 	String preferenceKeyResponseType            = null;
 	String preferenceKeyPeriodicMessage         = null;
@@ -52,6 +54,8 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		setContentView(R.layout.main);
 
+		preferenceKeyHttpServerPath          = getString(R.string.preference_key_http_server_path);
+		preferenceKeyWebSocketServerPath     = getString(R.string.preference_key_websocket_server_path);
 		preferenceKeyPortNumber              = getString(R.string.preference_key_port_number);
 		preferenceKeyResponseType            = getString(R.string.preference_key_response_type);
 		preferenceKeyPeriodicMessage         = getString(R.string.preference_key_periodic_message);
@@ -193,6 +197,8 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		Bundle prefData = getPreferenceData();
 
+		String  httpServerPath          = prefData.getString (preferenceKeyHttpServerPath);
+		String  webSocketServerPath     = prefData.getString (preferenceKeyWebSocketServerPath);
 		int     portNumber              = prefData.getInt    (preferenceKeyPortNumber);
 		boolean periodicMessage         = prefData.getBoolean(preferenceKeyPeriodicMessage);
 		int     periodicMessageInterval = prefData.getInt    (preferenceKeyPeriodicMessageInterval);
@@ -265,12 +271,16 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 
+		String  defaultValueHttpServerPath          =                 getString(R.string.default_value_http_server_path);
+		String  defaultValueWebSocketServerPath     =                 getString(R.string.default_value_websocket_server_path);
 		String  defaultValuePortNumber              =                 getString(R.string.default_value_port_number);
 		String  defaultValueResponseType            =                 getString(R.string.default_value_response_type);
 		boolean defaultValuePeriodicMessage         = Boolean.valueOf(getString(R.string.default_value_periodic_message));
 		String  defaultValuePeriodicMessageInterval =                 getString(R.string.default_value_periodic_message_interval);
 		String  defaultValuePeriodicMessageText     =                 getString(R.string.default_value_periodic_message_text);
 
+		String  currentValueHttpServerPath          =                 pref.getString (preferenceKeyHttpServerPath,          defaultValueHttpServerPath);
+		String  currentValueWebSocketServerPath     =                 pref.getString (preferenceKeyWebSocketServerPath,     defaultValueWebSocketServerPath);
 		int     currentValuePortNumber              = Integer.valueOf(pref.getString (preferenceKeyPortNumber,              defaultValuePortNumber), 10);
 		String  currentValueResponseType            =                 pref.getString (preferenceKeyResponseType,            defaultValueResponseType);
 		boolean currentValuePeriodicMessage         =                 pref.getBoolean(preferenceKeyPeriodicMessage,         defaultValuePeriodicMessage);
@@ -279,6 +289,8 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		Bundle bundle = new Bundle();
 
+		bundle.putString(preferenceKeyHttpServerPath,       currentValueHttpServerPath);
+		bundle.putString(preferenceKeyWebSocketServerPath,  currentValueWebSocketServerPath);
 		bundle.putInt(preferenceKeyPortNumber,              currentValuePortNumber);
 		bundle.putString(preferenceKeyResponseType,         currentValueResponseType);
 		bundle.putBoolean(preferenceKeyPeriodicMessage,     currentValuePeriodicMessage);
@@ -314,12 +326,16 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 
 		Bundle prefData = getPreferenceData();
 
+		TextView displayAreaHttpServerPath          = (TextView)findViewById(R.id.display_area_http_server_path);
+		TextView displayAreaWebSocketServerPath     = (TextView)findViewById(R.id.display_area_websocket_server_path);
 		TextView displayAreaPortNumber              = (TextView)findViewById(R.id.display_area_port_number);
 		TextView displayAreaResponseType            = (TextView)findViewById(R.id.display_area_response_type);
 		TextView displayAreaPeriodicMessage         = (TextView)findViewById(R.id.display_area_periodic_message);
 		TextView displayAreaPeriodicMessageInterval = (TextView)findViewById(R.id.display_area_periodic_message_interval);
 		TextView displayAreaPeriodicMessageText     = (TextView)findViewById(R.id.display_area_periodic_message_text);
 
+		String  currentValueHttpServerPath          = prefData.getString (preferenceKeyHttpServerPath);
+		String  currentValueWebSocketServerPath     = prefData.getString (preferenceKeyWebSocketServerPath);
 		int     currentValuePortNumber              = prefData.getInt    (preferenceKeyPortNumber);
 		String  currentValueResponseTypeValue       = prefData.getString (preferenceKeyResponseType);
 		boolean currentValuePeriodicMessage         = prefData.getBoolean(preferenceKeyPeriodicMessage);
@@ -336,6 +352,8 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 			}
 		}
 
+		displayAreaHttpServerPath         .setText(String.valueOf(currentValueHttpServerPath));
+		displayAreaWebSocketServerPath    .setText(String.valueOf(currentValueWebSocketServerPath));
 		displayAreaPortNumber             .setText(String.valueOf(currentValuePortNumber));
 		displayAreaResponseType           .setText(               currentValueResponseTypeName);
 		displayAreaPeriodicMessage        .setText(               currentValuePeriodicMessage?"ON":"OFF");
