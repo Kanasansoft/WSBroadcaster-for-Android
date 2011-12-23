@@ -40,5 +40,6 @@
 	<string name="preference_periodic_message_text_dialog_title">Input Send Text</string>
 
 	<string name="message_only_when_a_server_is_stoped">Only when a server is stoped.</string>
+	<string name="message_cannot_make_directory_in_sd_card">Cannot make Directory in SD card.</string>
 
 </resources>

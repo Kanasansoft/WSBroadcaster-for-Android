@@ -1,5 +1,6 @@
 package com.kanasansoft.android.WSBroadcaster;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -18,6 +19,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -170,6 +172,17 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 	private void startWebSocketServer() {
 
 		Bundle prefData = getPreferenceData();
+
+		File dirInSDCord = new File(Environment.getExternalStorageDirectory(),"WSBroadcaster");
+		if (!dirInSDCord.exists()) {
+			if (!dirInSDCord.mkdir()) {
+				Builder alert = new AlertDialog.Builder(this);
+				alert.setMessage(R.string.message_cannot_make_directory_in_sd_card);
+				alert.setPositiveButton(android.R.string.ok, null);
+				alert.create().show();
+				return;
+			}
+		}
 
 		int     portNumber              = prefData.getInt    (preferenceKeyPortNumber);
 		boolean periodicMessage         = prefData.getBoolean(preferenceKeyPeriodicMessage);
