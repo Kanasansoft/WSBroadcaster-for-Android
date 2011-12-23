@@ -20,6 +20,14 @@
 
 	<string name="server_status">Server Status</string>
 
+	<string name="preference_http_server_path_title">HTTP Path</string>
+	<string name="preference_http_server_path_summary">HTTP Server Path</string>
+	<string name="preference_http_server_path_dialog_title">Input HTTP Path</string>
+
+	<string name="preference_websocket_server_path_title">WebSocket Path</string>
+	<string name="preference_websocket_server_path_summary">WebSocket Server Path</string>
+	<string name="preference_websocket_server_path_dialog_title">Input WebSocket Path</string>
+
 	<string name="preference_port_number_title">Port Number</string>
 	<string name="preference_port_number_summary">Open Port Number</string>
 	<string name="preference_port_number_dialog_title">Input Port Number</string>
