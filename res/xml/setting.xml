@@ -10,6 +10,7 @@
 		android:inputType="text"
 		android:maxLength="10"
 		android:defaultValue="@string/default_value_http_server_path"
+		android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	/>
 	<EditTextPreference
 		android:key="@string/preference_key_websocket_server_path"
@@ -19,6 +20,7 @@
 		android:inputType="text"
 		android:maxLength="10"
 		android:defaultValue="@string/default_value_websocket_server_path"
+		android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	/>
 	<EditTextPreference
 		android:key="@string/preference_key_port_number"
