@@ -49,5 +49,6 @@
 
 	<string name="message_only_when_a_server_is_stoped">Only when a server is stoped.</string>
 	<string name="message_cannot_make_directory_in_sd_card">Cannot make Directory in SD card.</string>
+	<string name="message_cannot_same_path_http_and_websocket">Cannot same path HTTP and WebSocket.</string>
 
 </resources>

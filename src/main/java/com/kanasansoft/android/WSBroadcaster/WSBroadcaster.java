@@ -204,6 +204,14 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		int     periodicMessageInterval = prefData.getInt    (preferenceKeyPeriodicMessageInterval);
 		String  periodicMessageText     = prefData.getString (preferenceKeyPeriodicMessageText);
 
+		if (httpServerPath.equals(webSocketServerPath)) {
+			Builder alert = new AlertDialog.Builder(this);
+			alert.setMessage(R.string.message_cannot_same_path_http_and_websocket);
+			alert.setPositiveButton(android.R.string.ok, null);
+			alert.create().show();
+			return;
+		}
+
 		server = new Server(portNumber);
 
 		server.addLifeCycleListener(this);
