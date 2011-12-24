@@ -212,12 +212,12 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		rh.setResourceBase(directoryOfPathInSDCard);
 		ContextHandler chrh = new ContextHandler();
 		chrh.setHandler(rh);
-		chrh.setContextPath("/html");
+		chrh.setContextPath("/" + httpServerPath);
 
 		MyWebSocketServlet wss = new MyWebSocketServlet(this);
 		ServletHolder sh = new ServletHolder(wss);
 		ServletContextHandler sch = new ServletContextHandler();
-		sch.addServlet(sh, "/");
+		sch.addServlet(sh, "/" + webSocketServerPath);
 
 		HandlerList hl = new HandlerList();
 		hl.setHandlers(new Handler[] {chrh, sch});
