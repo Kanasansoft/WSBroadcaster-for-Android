@@ -231,6 +231,9 @@ public class WSBroadcaster extends Activity implements Listener, OnClickListener
 		hl.setHandlers(new Handler[] {chrh, sch});
 		server.setHandler(hl);
 
+		// http://code.google.com/p/android/issues/detail?id=9431
+		System.setProperty("java.net.preferIPv6Addresses", "false");
+
 		try {
 			server.start();
 		} catch (Exception e) {
