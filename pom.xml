@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.kanasansoft.android.WSBroadcaster</groupId>
   <artifactId>WSBroadcaster</artifactId>
-  <version>0.0.6-SNAPSHOT</version>
+  <version>0.0.6</version>
   <packaging>apk</packaging>
   <name>WSBroadcaster for Android</name>
   <scm>
