@@ -78,12 +78,12 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
-      <version>8.0.4.v20111024</version>
+      <version>8.1.2.v20120308</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-websocket</artifactId>
-      <version>8.0.4.v20111024</version>
+      <version>8.1.2.v20120308</version>
     </dependency>
   </dependencies>
 </project>
